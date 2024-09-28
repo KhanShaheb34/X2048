@@ -128,5 +128,32 @@ struct GameLogic {
         return newGrid
     }
     
+    static func isGameOver(_ grid: [[Int]]) -> Bool {
+        for row in grid {
+            if row.contains(0) {
+                return false
+            }
+        }
+
+        for i in 0..<4 {
+            for j in 0..<3 {
+                if grid[i][j] == grid[i][j + 1] {
+                    return false
+                }
+            }
+        }
+
+        for i in 0..<3 {
+            for j in 0..<4 {
+                if grid[i][j] == grid[i + 1][j] {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+
+    
 
 }
