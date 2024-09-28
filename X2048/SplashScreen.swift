@@ -6,7 +6,11 @@ struct SplashScreen: View {
             Text("Welcome to Swift2048")
                 .font(.largeTitle)
                 .padding()
-            // Add any images or logos here
         }
     }
+}
+
+
+#Preview {
+    SplashScreen()
 }
