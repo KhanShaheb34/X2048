@@ -50,12 +50,12 @@ struct GameView: View {
                 self.score = 0
             }))
         }
-        .onChange(of: grid, perform: { _ in
-            if GameLogic.isGameOver(grid) {
+        .onChange(of: self.grid, initial: true) { _, newGrid in
+            if GameLogic.isGameOver(newGrid) {
                 self.isGameOver = true
             }
             self.score = calculateScore()
-        })
+        }
     }
     
     func calculateScore() -> Int {
