@@ -59,10 +59,8 @@ struct GameView: View {
                 self.isGameOver = true
             }
             self.score = calculateScore()
-        }
-        .onChange(of: score) { _, newScore in
-            if newScore > self.highScore {
-                UserDefaults.standard.set(newScore, forKey: "highScore")
+            if self.score > self.highScore {
+                UserDefaults.standard.set(self.score, forKey: "HighScore")
             }
         }
         .onAppear {
