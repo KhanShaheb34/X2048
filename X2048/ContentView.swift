@@ -8,14 +8,21 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var showGame = false
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        if showGame {
+            GameView()
+        } else {
+            SplashScreen()
+                .onAppear() {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation {
+                            self.showGame = true
+                        }
+                    }
+            }
         }
-        .padding()
     }
 }
 
