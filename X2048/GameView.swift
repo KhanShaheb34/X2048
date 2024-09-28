@@ -4,6 +4,7 @@ struct GameView: View {
     @State private var grid = Array(repeating: Array(repeating: 0, count: 4), count: 4)
     @State private var isGameOver = false
     @State private var score = 0
+    @State private var highScore = UserDefaults.standard.integer(forKey: "HighScore")
     
     init() {
         _grid = State(initialValue: GameLogic.createInitialGrid())
@@ -42,24 +43,32 @@ struct GameView: View {
                     }
                 }
         )
-        .alert(isPresented: $isGameOver) {
-            Alert(title: Text("Game Over"),
-                  message: Text("Your score was \(calculateScore())"),
-                  dismissButton: .default(Text("Restart"), action: {
-                self.grid = GameLogic.createInitialGrid()
-                self.score = 0
-            }))
-        }
+        .fullScreenCover(isPresented: $isGameOver, content: {
+            GameOverView(score: score, highScore: highScore, onRestart: {
+                restartGame()
+            })
+        })
         .onChange(of: self.grid, initial: true) { _, newGrid in
             if GameLogic.isGameOver(newGrid) {
                 self.isGameOver = true
             }
             self.score = calculateScore()
         }
+        .onChange(of: score) { _, newScore in
+            if newScore > self.highScore {
+                UserDefaults.standard.set(newScore, forKey: "highScore")
+            }
+        }
     }
     
     func calculateScore() -> Int {
         return grid.flatMap { $0 }.reduce(0, +)
+    }
+    
+    func restartGame() {
+        self.isGameOver = false
+        self.grid = GameLogic.createInitialGrid()
+        self.score = 0
     }
 }
 
