@@ -7,6 +7,9 @@ struct SplashScreen: View {
                 .font(.largeTitle)
                 .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color(red: 234/255, green: 236/255, blue: 226/255))
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

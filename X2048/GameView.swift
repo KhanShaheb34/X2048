@@ -9,11 +9,15 @@ struct GameView: View {
     }
 
     var body: some View {
-        VStack {
-            Text("Swift2048")
-                .font(.largeTitle)
-                .padding()
-            GridView(grid: $grid)
+        ZStack {
+            Color(red: 234/255, green: 236/255, blue: 226/255).edgesIgnoringSafeArea(.all)
+            VStack {
+                Text("Swift2048")
+                    .font(.largeTitle)
+                    .padding()
+                GridView(grid: $grid)
+            }
+            .padding()
         }
         .gesture(
             DragGesture()
