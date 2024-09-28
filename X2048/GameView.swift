@@ -1,10 +1,13 @@
 import SwiftUI
+import UIKit
 
 struct GameView: View {
     @State private var grid = Array(repeating: Array(repeating: 0, count: 4), count: 4)
     @State private var isGameOver = false
     @State private var score = 0
     @State private var highScore = UserDefaults.standard.integer(forKey: "HighScore")
+    
+    let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
     
     init() {
         _grid = State(initialValue: GameLogic.createInitialGrid())
@@ -41,6 +44,9 @@ struct GameView: View {
                             self.grid = GameLogic.moveDown(self.grid)
                         }
                     }
+                    
+                    feedbackGenerator.impactOccurred()
+                    feedbackGenerator.prepare()
                 }
         )
         .fullScreenCover(isPresented: $isGameOver, content: {
@@ -58,6 +64,9 @@ struct GameView: View {
             if newScore > self.highScore {
                 UserDefaults.standard.set(newScore, forKey: "highScore")
             }
+        }
+        .onAppear {
+            self.feedbackGenerator.prepare()
         }
     }
     
