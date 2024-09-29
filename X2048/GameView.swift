@@ -4,7 +4,7 @@ import UIKit
 struct GameView: View {
     @State private var grid = Array(repeating: Array(repeating: 0, count: 4), count: 4)
     @State private var isGameOver = false
-    @State private var score = 0
+    @State private var score: Int = 0
     @State private var highScore = UserDefaults.standard.integer(forKey: "HighScore")
     
     let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
@@ -17,7 +17,8 @@ struct GameView: View {
         ZStack {
             Color(red: 234/255, green: 236/255, blue: 226/255).edgesIgnoringSafeArea(.all)
             VStack {
-                Text("\(self.score)")
+                Text("\(score)")
+                    .contentTransition(.numericText(value: Double(score)))
                     .font(.custom("Molot", size: 80))
                     .foregroundColor(Color(red: 186/255, green: 173/255, blue: 158/255))
                     .padding()
@@ -58,7 +59,9 @@ struct GameView: View {
             if GameLogic.isGameOver(newGrid) {
                 self.isGameOver = true
             }
-            self.score = calculateScore()
+            withAnimation {
+                self.score = calculateScore()
+            }
             if self.score > self.highScore {
                 UserDefaults.standard.set(self.score, forKey: "HighScore")
             }
