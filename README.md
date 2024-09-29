@@ -27,9 +27,9 @@ X2048 is a beautifully designed iOS puzzle game inspired by the classic 2048. Bu
 
 ## Screenshots
 
-![Splash Screen](Screenshots/splash_screen.jpg)
-![Game Screen](Screenshots/game.jpg)
-![Game Over Screen](Screenshots/game_over.jpg)
+| Splash Screen                                   | Main Game Screen                     | Game Over Screen                               |
+| ----------------------------------------------- | ------------------------------------ | ---------------------------------------------- |
+| ![Splash Screen](Screenshots/splash_screen.jpg) | ![Game Screen](Screenshots/game.jpg) | ![Game Over Screen](Screenshots/game_over.jpg) |
 
 ## Requirements
 
